@@ -5,3 +5,4 @@ export interface IUser {
   age: number;
 }
 
+export type Method = "GET" | "POST" | "PUT" | "DELETE";

@@ -1,18 +1,41 @@
+import type { Method } from "./users.interface";
+
+let responseMessage: string;
+let data: any;
 export interface Response {
   success: boolean;
   message: string;
   data: [];
 }
-export const createdUserResponse = (result: any) => {
+export const successResponse = (result: any, method: Method) => {
+
+
+  if(method === "POST"){
+    responseMessage = "User Created Successfully!";
+    data = result.rows[0];
+  }
+  else if(method === "GET"){
+    responseMessage = "Users Retrived Successfully";
+    data = result.rows;
+  }
+
+
   const response: Response = {
     success: true,
-    message: "User created Successfully!",
-    data: result.rows[0],
+    message: responseMessage,
+    data: data,
   };
   return response;
 };
 
-export const createFailedUserResponse = (error: any) => {
+export const FailedResponse = (error: any, method: Method) => {
+
+  if (method === "POST") {
+    responseMessage = "User didn't Create Successfully!";
+  } else if (method === "GET") {
+    responseMessage = "Users didn't Retrive Successfully";
+  }
+
   if (error instanceof Error) {
     return {
       success: false,
@@ -21,7 +44,7 @@ export const createFailedUserResponse = (error: any) => {
   } else {
     return {
       success: false,
-      message: "User didn't create Successfully!",
+      message:responseMessage,
     };
   }
 };
