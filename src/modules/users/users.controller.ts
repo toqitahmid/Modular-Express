@@ -1,18 +1,38 @@
 import type { Request, Response } from "express";
-import { createUser } from "./users.service";
-import { createdUserResponse, createFailedUserResponse } from "../../utils/response";
+import { createUser, getUsers } from "./users.service";
+import { successResponse, FailedResponse } from "../../utils/response";
+import type { Method } from "../../utils/users.interface";
+
+
+
+let method: Method;
+
 
 const createUserController = async (req: Request, res: Response) => {
   try {
     const result = await createUser(req.body);
-    res.status(201).json(createdUserResponse(result));
+
+    method = "POST";
+    res.status(201).json(successResponse(result,method));
   } 
   catch (error) {
-    createFailedUserResponse(error);
+    FailedResponse(error, method);
   }
 };
+
+const getUserController = async(req: Request, res: Response) => {
+  try{
+    method = "GET"
+    const result = await getUsers();
+    res.status(200).json(successResponse(result, method));
+  }
+  catch(error){
+    FailedResponse(error, method);
+  }
+}
 
 
 export const userController = {
     createUserController,
+    getUserController,
 }

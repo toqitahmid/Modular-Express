@@ -1,5 +1,5 @@
 import { pool } from "../../db";
-import type { IUser } from "../../utils/users.interface";
+import type { IUser, Method } from "../../utils/users.interface";
 
 export const createUser = async(payload: IUser) => {
 
@@ -11,4 +11,12 @@ export const createUser = async(payload: IUser) => {
       [name, email, password, age],
     );
     return result
+}
+
+export const getUsers = async() => {
+  const result = await pool.query(`
+    SELECT * FROM users
+    `);
+  
+  return result;
 }
