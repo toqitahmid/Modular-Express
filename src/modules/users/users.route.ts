@@ -6,7 +6,7 @@ const router = Router();
 router.post("/", userController.createUserController)
 router.get("/", userController.getUserController)
 router.get("/:id", userController.getUserByIdController)
-router.get("/:id", userController.getUserByIdController)
+router.delete("/:id", userController.deleteUserController)
 
 
 export const userRouter = router

@@ -28,3 +28,14 @@ export const getUserById = async(id: any) => {
   
   return result;
 }
+
+export const deleteUser = async (id: any) => {
+  const result = await pool.query(
+    `
+    DELETE FROM users WHERE id=$1
+    `,
+    [id],
+  );
+
+  return result;
+};

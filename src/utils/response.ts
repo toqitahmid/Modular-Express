@@ -18,6 +18,9 @@ export const successResponse = (result: any, method: Method) => {
     responseMessage = "Users Retrived Successfully";
     data = result.rows;
   }
+  else if(method === "DELETE"){
+    responseMessage = "User deleted Successfully";
+  }
 
 
   const response: Response = {
@@ -34,6 +37,8 @@ export const FailedResponse = (error: any, method: Method) => {
     responseMessage = "User didn't Create Successfully!";
   } else if (method === "GET") {
     responseMessage = "Users didn't Retrive Successfully";
+  } else if (method === "DELETE") {
+    responseMessage = "User didn't delete Successfully";
   }
 
   if (error instanceof Error) {
